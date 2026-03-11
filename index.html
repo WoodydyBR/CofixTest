@@ -1,0 +1,276 @@
+<!-- начало создания этой фигни: 11 00  -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latte arts ba Yana✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Courier+Prime&display=swap" rel="stylesheet">
+    <style>
+        :root { --accent: #ffcc33; --bg: #0d0a08; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: radial-gradient(circle at center, #2c1e12 0%, #0d0a08 100%);
+            color: #fff;
+            font-family: 'Courier Prime', monospace;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bg-particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+        .particle { position: absolute; background: var(--accent); border-radius: 50%; opacity: 0.1; animation: float 20s infinite linear; }
+        
+        @keyframes float {
+            0% { transform: translateY(105vh) rotate(0); }
+            100% { transform: translateY(-10vh) rotate(360deg); }
+        }
+
+
+        .confetti {
+            position: fixed;
+            z-index: 100;
+            pointer-events: none;
+            font-size: 2rem;
+            animation: fall 2s forwards ease-out;
+        }
+
+        @keyframes fall {
+            0% { transform: translate(0, 0) rotate(0); opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) rotate(360deg); opacity: 0; }
+        }
+
+        .filter-container { z-index: 10; margin-bottom: 10px; }
+        select {
+            background: rgba(255, 255, 255, 0.07);
+            color: var(--accent);
+            border: 1px solid rgba(255, 204, 51, 0.3);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            outline: none;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Кликабельный заголовок */
+        h1 { 
+            font-family: 'Caveat', cursive; 
+            font-size: 2.2rem; 
+            color: var(--accent); 
+            z-index: 1; 
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.2s;
+        }
+        h1:active { transform: scale(0.95); }
+
+        .subtitle { font-family: 'Caveat', cursive; font-size: 1.3rem; color: #e07070; margin-bottom: 20px; z-index: 1; }
+
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .slider-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+        .slider-container::-webkit-scrollbar { display: none; }
+
+        .coffee-card {
+            min-width: 100%;
+            scroll-snap-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .polaroid {
+            background: #fdfaf2;
+            padding: 12px 12px 55px 12px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+            transform: rotate(var(--r, 0deg));
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            max-width: 88%;
+        }
+        .polaroid img { width: 100%; height: 280px; object-fit: cover; display: block; }
+
+        .date-text {
+            position: absolute;
+            bottom: 12px; left: 0; right: 0;
+            text-align: center;
+            color: #3d2b1f;
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .nav-btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .prev { left: -15px; }
+        .next { right: -15px; }
+
+        .bottom-nav { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 15px; z-index: 1; }
+        .counter { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+        .dots { display: flex; gap: 8px; }
+        .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; }
+        .dot.active { background: var(--accent); transform: scale(1.4); }
+    </style>
+</head>
+<body>
+
+    <div class="bg-particles" id="particles"></div>
+
+    <div class="filter-container">
+        <select id="monthFilter" onchange="applyFilter()">
+            <option value="all">All arts</option>
+        </select>
+    </div>
+
+    <h1 onclick="activateEasterEgg(event)">Latte arts by Yana ✨</h1>
+    <div class="subtitle">Made with love დ</div>
+
+    <div class="slider-wrapper">
+        <button class="nav-btn prev" onclick="move(-1)">❮</button>
+        <button class="nav-btn next" onclick="move(1)">❯</button>
+
+        <div class="slider-container" id="slider">
+            <div class="coffee-card" data-date="2025-12"><div class="polaroid" style="--r: 3deg"><img src="IMG_20251217_142151.jpg"><div class="date-text">17.12.2025</div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: -2deg"><img src="IMG_20260106_115427.jpg"><div class="date-text">06.01.2026</div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: 1deg"><img src="IMG_20260115_115318.jpg"><div class="date-text">15.01.2026</div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: -3deg"><img src="IMG_20260119_103301.jpg"><div class="date-text">19.01.2026</div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: 2deg"><img src="IMG_20260120_124125.jpg"><div class="date-text">20.01.2026</div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: -1deg"><img src="IMG_20260129_144001.jpg"><div class="date-text">29.01.2026</div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: 4deg"><img src="IMG_20260129_154607.jpg"><div class="date-text">29.01.2026</div></div></div>
+            <div class="coffee-card" data-date="2026-02"><div class="polaroid" style="--r: -2deg"><img src="IMG_20260216_133451.jpg"><div class="date-text">16.02.2026</div></div></div>
+            <div class="coffee-card" data-date="2026-03"><div class="polaroid" style="--r: 1deg"><img src="IMG_20260302_115217.jpg"><div class="date-text">02.03.2026</div></div></div>
+            <div class="coffee-card" data-date="2026-03"><div class="polaroid" style="--r: -2deg"><img src="IMG_20260305_105547.jpg"><div class="date-text">05.03.2026</div></div></div>
+            <div class="coffee-card" data-date="unknown"><div class="polaroid" style="--r: 1deg"><img src="photo1.jpg"><div class="date-text">xx.xx.xxxx</div></div></div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="counter"><span id="current">1</span> / <span id="total">0</span></div>
+        <div class="dots" id="dots"></div>
+    </div>
+
+    <script>
+        const slider = document.getElementById('slider');
+        const filter = document.getElementById('monthFilter');
+        const dotsContainer = document.getElementById('dots');
+        const monthNames = {"01":"Январь","02":"Февраль","03":"Март","04":"Апрель","05":"Май","06":"Июнь","07":"Июль","08":"Август","09":"Сентябрь","10":"Октябрь","11":"Ноябрь","12":"Декабрь"};
+
+        let visibleCards = [];
+        let currentIdx = 0;
+
+        function activateEasterEgg(e) {
+            const items = ['☕', '✨', '🥐', '☕'];
+            for(let i=0; i<15; i++) {
+                const span = document.createElement('span');
+                span.className = 'confetti';
+                span.textContent = items[Math.floor(Math.random()*items.length)];
+                span.style.left = (e.pageX || window.innerWidth/2) + 'px';
+                span.style.top = (e.pageY || window.innerHeight/2) + 'px';
+                span.style.setProperty('--dx', (Math.random()*400 - 200) + 'px');
+                span.style.setProperty('--dy', (Math.random()*400 - 200) + 'px');
+                document.body.appendChild(span);
+                setTimeout(() => span.remove(), 2000);
+            }
+        }
+
+
+        document.addEventListener('keydown', (e) => {
+            if(e.code === 'KeyC') activateEasterEgg(e);
+            if(e.key === 'ArrowLeft') move(-1);
+            if(e.key === 'ArrowRight') move(1);
+        });
+
+        function generateFilter() {
+            const dates = [...new Set(Array.from(document.querySelectorAll('.coffee-card')).map(c => c.dataset.date))].filter(d => d !== 'unknown').sort().reverse();
+            dates.forEach(m => {
+                const [y, mm] = m.split('-');
+                const opt = document.createElement('option');
+                opt.value = m; opt.textContent = `${monthNames[mm]} ${y}`;
+                filter.appendChild(opt);
+            });
+        }
+
+        function applyFilter() {
+            const val = filter.value;
+            const all = document.querySelectorAll('.coffee-card');
+            all.forEach(c => c.style.display = (val === 'all' || c.dataset.date === val) ? 'flex' : 'none');
+            visibleCards = Array.from(all).filter(c => c.style.display !== 'none');
+            renderDots();
+            goTo(0);
+        }
+
+        function renderDots() {
+            dotsContainer.innerHTML = '';
+            visibleCards.forEach((_, i) => {
+                const d = document.createElement('div');
+                d.className = 'dot' + (i===0?' active':'');
+                d.onclick = () => goTo(i);
+                dotsContainer.appendChild(d);
+            });
+            document.getElementById('total').textContent = visibleCards.length;
+        }
+
+        function goTo(i) {
+            if (!visibleCards[i]) return;
+            currentIdx = i;
+            slider.scrollTo({ left: visibleCards[i].offsetLeft - slider.offsetLeft, behavior: 'smooth' });
+            updateUI(i);
+        }
+
+        function updateUI(i) {
+            document.getElementById('current').textContent = i + 1;
+            const ds = dotsContainer.querySelectorAll('.dot');
+            ds.forEach((d, idx) => d.classList.toggle('active', idx === i));
+        }
+
+        function move(dir) {
+            let n = currentIdx + dir;
+            if (n >= 0 && n < visibleCards.length) goTo(n);
+        }
+
+        for(let i=0; i<25; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.width = p.style.height = (Math.random()*4+2)+'px';
+            p.style.left = Math.random()*100+'vw';
+            p.style.animationDelay = Math.random()*20+'s';
+            document.getElementById('particles').appendChild(p);
+        }
+
+        generateFilter();
+        applyFilter();
+    </script>
+</body>
+</html>
