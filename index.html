@@ -1,4 +1,4 @@
-<!-- начало создания этой фигни: 11 00  -->
+<!-- start job in 11 a.m 05.03 -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -23,7 +23,7 @@
             position: relative;
         }
 
-        /* Зерно / шум на фоне */
+        
         body::before {
             content: '';
             position: fixed;
@@ -35,7 +35,7 @@
             background-size: 180px 180px;
         }
 
-        /* Виньетка */
+
         body::after {
             content: '';
             position: fixed;
@@ -60,17 +60,16 @@
             font-size: 2rem;
             animation: fall 2s forwards ease-out;
         }
-
         @keyframes fall {
-            0%   { transform: translate(0, 0) rotate(0); opacity: 1; }
+            0%   { transform: translate(0,0) rotate(0); opacity: 1; }
             100% { transform: translate(var(--dx), var(--dy)) rotate(360deg); opacity: 0; }
         }
 
         .filter-container { z-index: 10; margin-bottom: 10px; }
         select {
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255,255,255,0.07);
             color: var(--accent);
-            border: 1px solid rgba(255, 204, 51, 0.3);
+            border: 1px solid rgba(255,204,51,0.3);
             padding: 6px 15px;
             border-radius: 20px;
             font-family: 'Caveat', cursive;
@@ -88,7 +87,7 @@
             cursor: pointer;
             user-select: none;
             transition: transform 0.2s;
-            text-shadow: 0 2px 20px rgba(255, 204, 51, 0.25);
+            text-shadow: 0 2px 20px rgba(255,204,51,0.25);
         }
         h1:active { transform: scale(0.95); }
 
@@ -123,36 +122,45 @@
             justify-content: center;
         }
 
-        /* Анимация "падения" поляроида */
+        
+        .polaroid-wrap {
+            transform: rotate(var(--r, 0deg));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 88%;
+            cursor: zoom-in;
+        }
+        .polaroid-wrap:hover {
+            transform: rotate(0deg) scale(1.03);
+        }
+        .polaroid-wrap:hover .polaroid {
+            box-shadow:
+                0 10px 26px rgba(90,40,10,0.55),
+                0 38px 75px rgba(40,14,3,0.82),
+                0 2px 6px rgba(255,200,120,0.1);
+        }
+
         @keyframes cardDrop {
-            0%   { opacity: 0; transform: rotate(var(--r, 0deg)) translateY(-30px) scale(0.92); }
-            65%  { opacity: 1; transform: rotate(var(--r, 0deg)) translateY(5px) scale(1.01); }
-            100% { opacity: 1; transform: rotate(var(--r, 0deg)) translateY(0) scale(1); }
+            0%   { opacity: 0; transform: translateY(-30px) scale(0.92); }
+            65%  { opacity: 1; transform: translateY(5px) scale(1.01); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .polaroid {
             background: #fdfaf2;
             padding: 12px 12px 55px 12px;
-            /* тёплая коричневая тень */
             box-shadow:
-                0 6px 16px rgba(90, 40, 10, 0.4),
-                0 22px 50px rgba(50, 18, 5, 0.65),
-                0 2px 4px rgba(255, 200, 120, 0.07);
-            transform: rotate(var(--r, 0deg));
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                        box-shadow 0.35s ease;
+                0 6px 16px rgba(90,40,10,0.4),
+                0 22px 50px rgba(50,18,5,0.65),
+                0 2px 4px rgba(255,200,120,0.07);
             position: relative;
-            max-width: 88%;
-            cursor: zoom-in;
-            animation: cardDrop 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+            transition: box-shadow 0.35s ease;
+            animation: cardDrop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        
+            will-change: transform, opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
-        .polaroid:hover {
-            transform: rotate(0deg) scale(1.03);
-            box-shadow:
-                0 10px 26px rgba(90, 40, 10, 0.55),
-                0 38px 75px rgba(40, 14, 3, 0.82),
-                0 2px 6px rgba(255, 200, 120, 0.1);
-        }
+
         .polaroid img { width: 100%; height: 280px; object-fit: cover; display: block; }
 
         .date-text {
@@ -167,7 +175,7 @@
 
         .nav-btn {
             position: absolute;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             border: 1px solid var(--accent);
             color: var(--accent);
             width: 44px; height: 44px;
@@ -177,35 +185,36 @@
             display: flex; align-items: center; justify-content: center;
             transition: background 0.2s;
         }
-        .nav-btn:hover { background: rgba(255, 204, 51, 0.12); }
+        .nav-btn:hover { background: rgba(255,204,51,0.12); }
         .prev { left: -15px; }
         .next { right: -15px; }
 
-        /* Кнопки скрыты на мобилке — там работает свайп */
         @media (max-width: 600px) {
             .nav-btn { display: none; }
         }
 
         .bottom-nav { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 15px; z-index: 10; }
         .counter { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
-        .dots { display: flex; gap: 8px; }
+        .dots { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 260px; }
         .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: transform 0.2s, background 0.2s; }
         .dot.active { background: var(--accent); transform: scale(1.4); }
 
-        /* ===== LIGHTBOX ===== */
+   
         .lightbox {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.92);
+            background: rgba(0,0,0,0.92);
             backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             align-items: center;
             justify-content: center;
-            animation: lbFadeIn 0.25s ease;
         }
-        .lightbox.open { display: flex; }
-
+        .lightbox.open {
+            display: flex;
+            animation: lbFadeIn 0.25s ease both;
+        }
         @keyframes lbFadeIn {
             from { opacity: 0; }
             to   { opacity: 1; }
@@ -216,9 +225,10 @@
             flex-direction: column;
             align-items: center;
             gap: 14px;
-            animation: lbZoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: lbZoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
-
         @keyframes lbZoomIn {
             from { transform: scale(0.8); opacity: 0; }
             to   { transform: scale(1); opacity: 1; }
@@ -228,13 +238,12 @@
             background: #fdfaf2;
             padding: 14px 14px 60px 14px;
             box-shadow:
-                0 12px 30px rgba(90, 40, 10, 0.6),
-                0 50px 100px rgba(10, 5, 0, 0.95);
+                0 12px 30px rgba(90,40,10,0.6),
+                0 50px 100px rgba(10,5,0,0.95);
             position: relative;
             max-width: 90vw;
             max-height: 80vh;
         }
-
         .lightbox-polaroid img {
             display: block;
             max-width: 80vw;
@@ -243,7 +252,6 @@
             height: auto;
             object-fit: contain;
         }
-
         .lightbox-date {
             text-align: center;
             color: #3d2b1f;
@@ -294,17 +302,17 @@
         <button class="nav-btn next" onclick="move(1)">❯</button>
 
         <div class="slider-container" id="slider">
-            <div class="coffee-card" data-date="2025-12"><div class="polaroid" style="--r: 3deg" onclick="openLightbox(this)"><img src="IMG_20251217_142151.jpg"><div class="date-text">17.12.2025</div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: -2deg" onclick="openLightbox(this)"><img src="IMG_20260106_115427.jpg"><div class="date-text">06.01.2026</div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: 1deg" onclick="openLightbox(this)"><img src="IMG_20260115_115318.jpg"><div class="date-text">15.01.2026</div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: -3deg" onclick="openLightbox(this)"><img src="IMG_20260119_103301.jpg"><div class="date-text">19.01.2026</div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: 2deg" onclick="openLightbox(this)"><img src="IMG_20260120_124125.jpg"><div class="date-text">20.01.2026</div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: -1deg" onclick="openLightbox(this)"><img src="IMG_20260129_144001.jpg"><div class="date-text">29.01.2026</div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid" style="--r: 4deg" onclick="openLightbox(this)"><img src="IMG_20260129_154607.jpg"><div class="date-text">29.01.2026</div></div></div>
-            <div class="coffee-card" data-date="2026-02"><div class="polaroid" style="--r: -2deg" onclick="openLightbox(this)"><img src="IMG_20260216_133451.jpg"><div class="date-text">16.02.2026</div></div></div>
-            <div class="coffee-card" data-date="2026-03"><div class="polaroid" style="--r: 1deg" onclick="openLightbox(this)"><img src="IMG_20260302_115217.jpg"><div class="date-text">02.03.2026</div></div></div>
-            <div class="coffee-card" data-date="2026-03"><div class="polaroid" style="--r: -2deg" onclick="openLightbox(this)"><img src="IMG_20260305_105547.jpg"><div class="date-text">05.03.2026</div></div></div>
-            <div class="coffee-card" data-date="unknown"><div class="polaroid" style="--r: 1deg" onclick="openLightbox(this)"><img src="photo1.jpg"><div class="date-text">xx.xx.xxxx</div></div></div>
+            <div class="coffee-card" data-date="2025-12"><div class="polaroid-wrap" style="--r:3deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20251217_142151.jpg"><div class="date-text">17.12.2025</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:-2deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260106_115427.jpg"><div class="date-text">06.01.2026</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:1deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260115_115318.jpg"><div class="date-text">15.01.2026</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:-3deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260119_103301.jpg"><div class="date-text">19.01.2026</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:2deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260120_124125.jpg"><div class="date-text">20.01.2026</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:-1deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260129_144001.jpg"><div class="date-text">29.01.2026</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:4deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260129_154607.jpg"><div class="date-text">29.01.2026</div></div></div></div>
+            <div class="coffee-card" data-date="2026-02"><div class="polaroid-wrap" style="--r:-2deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260216_133451.jpg"><div class="date-text">16.02.2026</div></div></div></div>
+            <div class="coffee-card" data-date="2026-03"><div class="polaroid-wrap" style="--r:1deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260302_115217.jpg"><div class="date-text">02.03.2026</div></div></div></div>
+            <div class="coffee-card" data-date="2026-03"><div class="polaroid-wrap" style="--r:-2deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260305_105547.jpg"><div class="date-text">05.03.2026</div></div></div></div>
+            <div class="coffee-card" data-date="unknown"><div class="polaroid-wrap" style="--r:1deg" onclick="openLightbox(this)"><div class="polaroid"><img src="photo1.jpg"><div class="date-text">xx.xx.xxxx</div></div></div></div>
         </div>
     </div>
 
@@ -313,7 +321,6 @@
         <div class="dots" id="dots"></div>
     </div>
 
-    <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
         <button class="lightbox-close" onclick="closeLightbox()">✕</button>
         <div class="lightbox-inner">
@@ -334,10 +341,10 @@
         let visibleCards = [];
         let currentIdx = 0;
 
-        // ===== LIGHTBOX =====
-        function openLightbox(polaroid) {
-            const img = polaroid.querySelector('img');
-            const date = polaroid.querySelector('.date-text');
+    
+        function openLightbox(wrap) {
+            const img = wrap.querySelector('img');
+            const date = wrap.querySelector('.date-text');
             document.getElementById('lb-img').src = img.src;
             document.getElementById('lb-date').textContent = date.textContent;
             document.getElementById('lightbox').classList.add('open');
@@ -357,7 +364,7 @@
             if (e.key === 'ArrowRight') move(1);
         });
 
-        // ===== SWIPE =====
+    
         let touchStartX = 0;
         let touchStartY = 0;
         let isDragging = false;
@@ -380,9 +387,9 @@
             if (Math.abs(diff) > 40) move(diff > 0 ? 1 : -1);
         });
 
-        // ===== EASTER EGG =====
+       
         function activateEasterEgg(e) {
-            const items = ['☕', '✨', '🥐', '☕'];
+            const items = ['☕','✨','🥐','☕'];
             for (let i = 0; i < 15; i++) {
                 const span = document.createElement('span');
                 span.className = 'confetti';
@@ -396,7 +403,7 @@
             }
         }
 
-        // ===== FILTER =====
+        
         function generateFilter() {
             const dates = [...new Set(Array.from(document.querySelectorAll('.coffee-card')).map(c => c.dataset.date))].filter(d => d !== 'unknown').sort().reverse();
             dates.forEach(m => {
@@ -427,12 +434,12 @@
             document.getElementById('total').textContent = visibleCards.length;
         }
 
-        // Перезапуск анимации поляроида при переключении
+      
         function triggerCardAnim(card) {
             const p = card.querySelector('.polaroid');
             if (!p) return;
             p.style.animation = 'none';
-            p.offsetHeight; // reflow
+            p.offsetHeight; 
             p.style.animation = '';
         }
 
@@ -446,16 +453,15 @@
 
         function updateUI(i) {
             document.getElementById('current').textContent = i + 1;
-            const ds = dotsContainer.querySelectorAll('.dot');
-            ds.forEach((d, idx) => d.classList.toggle('active', idx === i));
+            dotsContainer.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
         }
 
         function move(dir) {
-            let n = currentIdx + dir;
+            const n = currentIdx + dir;
             if (n >= 0 && n < visibleCards.length) goTo(n);
         }
 
-        // ===== PARTICLES =====
+        
         for (let i = 0; i < 25; i++) {
             const p = document.createElement('div');
             p.className = 'particle';
