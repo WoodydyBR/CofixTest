@@ -1,4 +1,3 @@
-<!-- start job in 11 a.m 05.03 -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,287 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Latte arts by Yana✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Courier+Prime&display=swap" rel="stylesheet">
-    <style>
-        :root { --accent: #ffcc33; --bg: #0d0a08; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            background: radial-gradient(ellipse at 40% 30%, #3a2210 0%, #1a0f07 50%, #0d0a08 100%);
-            color: #fff;
-            font-family: 'Courier Prime', monospace;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.045;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-size: 180px 180px;
-        }
-
-
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.72) 100%);
-        }
-
-        .bg-particles { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
-        .particle { position: absolute; background: var(--accent); border-radius: 50%; opacity: 0.08; animation: float 20s infinite linear; }
-
-        @keyframes float {
-            0%   { transform: translateY(105vh) rotate(0); }
-            100% { transform: translateY(-10vh) rotate(360deg); }
-        }
-
-        .confetti {
-            position: fixed;
-            z-index: 200;
-            pointer-events: none;
-            font-size: 2rem;
-            animation: fall 2s forwards ease-out;
-        }
-        @keyframes fall {
-            0%   { transform: translate(0,0) rotate(0); opacity: 1; }
-            100% { transform: translate(var(--dx), var(--dy)) rotate(360deg); opacity: 0; }
-        }
-
-        .filter-container { z-index: 10; margin-bottom: 10px; }
-        select {
-            background: rgba(255,255,255,0.07);
-            color: var(--accent);
-            border: 1px solid rgba(255,204,51,0.3);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-family: 'Caveat', cursive;
-            font-size: 1.2rem;
-            outline: none;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-        }
-
-        h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 2.2rem;
-            color: var(--accent);
-            z-index: 10;
-            cursor: pointer;
-            user-select: none;
-            transition: transform 0.2s;
-            text-shadow: 0 2px 20px rgba(255,204,51,0.25);
-        }
-        h1:active { transform: scale(0.95); }
-
-        .subtitle { font-family: 'Caveat', cursive; font-size: 1.3rem; color: #e07070; margin-bottom: 20px; z-index: 10; }
-
-        .slider-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 480px;
-            height: 60vh;
-            display: flex;
-            align-items: center;
-            z-index: 10;
-        }
-
-        .slider-container {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-            scroll-behavior: smooth;
-        }
-        .slider-container::-webkit-scrollbar { display: none; }
-
-        .coffee-card {
-            min-width: 100%;
-            scroll-snap-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        
-        .polaroid-wrap {
-            transform: rotate(var(--r, 0deg));
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-width: 88%;
-            cursor: zoom-in;
-        }
-        .polaroid-wrap:hover {
-            transform: rotate(0deg) scale(1.03);
-        }
-        .polaroid-wrap:hover .polaroid {
-            box-shadow:
-                0 10px 26px rgba(90,40,10,0.55),
-                0 38px 75px rgba(40,14,3,0.82),
-                0 2px 6px rgba(255,200,120,0.1);
-        }
-
-        @keyframes cardDrop {
-            0%   { opacity: 0; transform: translateY(-30px) scale(0.92); }
-            65%  { opacity: 1; transform: translateY(5px) scale(1.01); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .polaroid {
-            background: #fdfaf2;
-            padding: 12px 12px 55px 12px;
-            box-shadow:
-                0 6px 16px rgba(90,40,10,0.4),
-                0 22px 50px rgba(50,18,5,0.65),
-                0 2px 4px rgba(255,200,120,0.07);
-            position: relative;
-            transition: box-shadow 0.35s ease;
-            animation: cardDrop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-        
-            will-change: transform, opacity;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        .polaroid img { width: 100%; height: 280px; object-fit: cover; display: block; }
-
-        .date-text {
-            position: absolute;
-            bottom: 12px; left: 0; right: 0;
-            text-align: center;
-            color: #3d2b1f;
-            font-family: 'Caveat', cursive;
-            font-size: 1.6rem;
-            font-weight: 700;
-        }
-
-        .nav-btn {
-            position: absolute;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
-            display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s;
-        }
-        .nav-btn:hover { background: rgba(255,204,51,0.12); }
-        .prev { left: -15px; }
-        .next { right: -15px; }
-
-        @media (max-width: 600px) {
-            .nav-btn { display: none; }
-        }
-
-        .bottom-nav { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 15px; z-index: 10; }
-        .counter { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
-        .dots { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 260px; }
-        .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: transform 0.2s, background 0.2s; }
-        .dot.active { background: var(--accent); transform: scale(1.4); }
-
-   
-        .lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            background: rgba(0,0,0,0.92);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            align-items: center;
-            justify-content: center;
-        }
-        .lightbox.open {
-            display: flex;
-            animation: lbFadeIn 0.25s ease both;
-        }
-        @keyframes lbFadeIn {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
-
-        .lightbox-inner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-            animation: lbZoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-        @keyframes lbZoomIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to   { transform: scale(1); opacity: 1; }
-        }
-
-        .lightbox-polaroid {
-            background: #fdfaf2;
-            padding: 14px 14px 60px 14px;
-            box-shadow:
-                0 12px 30px rgba(90,40,10,0.6),
-                0 50px 100px rgba(10,5,0,0.95);
-            position: relative;
-            max-width: 90vw;
-            max-height: 80vh;
-        }
-        .lightbox-polaroid img {
-            display: block;
-            max-width: 80vw;
-            max-height: 65vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-        }
-        .lightbox-date {
-            text-align: center;
-            color: #3d2b1f;
-            font-family: 'Caveat', cursive;
-            font-size: 1.8rem;
-            font-weight: 700;
-            position: absolute;
-            bottom: 12px; left: 0; right: 0;
-        }
-
-        .lightbox-close {
-            position: fixed;
-            top: 20px; right: 24px;
-            background: none;
-            border: none;
-            color: var(--accent);
-            font-size: 2.5rem;
-            cursor: pointer;
-            line-height: 1;
-            transition: transform 0.2s;
-            z-index: 1001;
-        }
-        .lightbox-close:hover { transform: rotate(90deg) scale(1.2); }
-
-        .lb-hint {
-            font-family: 'Caveat', cursive;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.35);
-            letter-spacing: 0.05em;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <div class="coffee-stain stain-1" id="stain1"></div>
+    <div class="coffee-stain stain-2" id="stain2"></div>
     <div class="bg-particles" id="particles"></div>
+
+    <div class="audio-control" onclick="toggleMusic()">
+        <span id="music-icon">🎵</span>
+        <audio id="bg-music" loop>
+            <source src="musicvof.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 
     <div class="filter-container">
         <select id="monthFilter" onchange="applyFilter()">
@@ -294,7 +26,7 @@
         </select>
     </div>
 
-    <h1 onclick="activateEasterEgg(event)">Latte arts by Yana ✨</h1>
+    <h1>Latte arts by Yana ✨</h1>
     <div class="subtitle">Made with love დ</div>
 
     <div class="slider-wrapper">
@@ -302,17 +34,17 @@
         <button class="nav-btn next" onclick="move(1)">❯</button>
 
         <div class="slider-container" id="slider">
-            <div class="coffee-card" data-date="2025-12"><div class="polaroid-wrap" style="--r:3deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20251217_142151.jpg"><div class="date-text">17.12.2025</div></div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:-2deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260106_115427.jpg"><div class="date-text">06.01.2026</div></div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:1deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260115_115318.jpg"><div class="date-text">15.01.2026</div></div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:-3deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260119_103301.jpg"><div class="date-text">19.01.2026</div></div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:2deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260120_124125.jpg"><div class="date-text">20.01.2026</div></div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:-1deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260129_144001.jpg"><div class="date-text">29.01.2026</div></div></div></div>
-            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:4deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260129_154607.jpg"><div class="date-text">29.01.2026</div></div></div></div>
-            <div class="coffee-card" data-date="2026-02"><div class="polaroid-wrap" style="--r:-2deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260216_133451.jpg"><div class="date-text">16.02.2026</div></div></div></div>
-            <div class="coffee-card" data-date="2026-03"><div class="polaroid-wrap" style="--r:1deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260302_115217.jpg"><div class="date-text">02.03.2026</div></div></div></div>
-            <div class="coffee-card" data-date="2026-03"><div class="polaroid-wrap" style="--r:-2deg" onclick="openLightbox(this)"><div class="polaroid"><img src="IMG_20260305_105547.jpg"><div class="date-text">05.03.2026</div></div></div></div>
-            <div class="coffee-card" data-date="unknown"><div class="polaroid-wrap" style="--r:1deg" onclick="openLightbox(this)"><div class="polaroid"><img src="photo1.jpg"><div class="date-text">xx.xx.xxxx</div></div></div></div>
+            <div class="coffee-card" data-date="2025-12"><div class="polaroid-wrap" style="--r:3deg" onclick="handleCardClick(event,this)"><div class="polaroid-front"><img src="IMG_20251217_142151.jpg" onclick="openLightbox(this.closest('.polaroid-wrap')); event.stopPropagation();"><div class="date-text">17.12.2025</div></div><div class="polaroid-back"><div class="back-note">TEST</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:-2deg" onclick="handleCardClick(this)"><div class="polaroid-front"><img src="IMG_20260106_115427.jpg"><div class="date-text">06.01.2026</div></div><div class="polaroid-back"><div class="back-note">TEST</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:1deg" onclick="handleCardClick(this)"><div class="polaroid-front"><img src="IMG_20260115_115318.jpg"><div class="date-text">15.01.2026</div></div><div class="polaroid-back"><div class="back-note">TEST</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:-3deg" onclick="handleCardClick(this)"><div class="polaroid-front"><img src="IMG_20260119_103301.jpg"><div class="date-text">19.01.2026</div></div><div class="polaroid-back"><div class="back-note">TEST</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:2deg" onclick="handleCardClick(this)"><div class="polaroid-front"><img src="IMG_20260120_124125.jpg"><div class="date-text">20.01.2026</div></div><div class="polaroid-back"><div class="back-note">TEST</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:-1deg" onclick="handleCardClick(this)"><div class="polaroid-front"><img src="IMG_20260129_144001.jpg"><div class="date-text">29.01.2026</div></div><div class="polaroid-back"><div class="back-note">TEST</div></div></div></div>
+            <div class="coffee-card" data-date="2026-01"><div class="polaroid-wrap" style="--r:4deg" onclick="handleCardClick(this)"><div class="polaroid-front"><img src="IMG_20260129_154607.jpg"><div class="date-text">29.01.2026</div></div><div class="polaroid-back"><div class="back-note">TEST</div></div></div></div>
+            <div class="coffee-card" data-date="2026-02"><div class="polaroid-wrap" style="--r:-2deg" onclick="handleCardClick(this)"><div class="polaroid-front"><img src="IMG_20260216_133451.jpg"><div class="date-text">16.02.2026</div></div><div class="polaroid-back"><div class="back-note">TEST</div></div></div></div>
+            <div class="coffee-card" data-date="2026-03"><div class="polaroid-wrap" style="--r:1deg" onclick="handleCardClick(this)"><div class="polaroid-front"><img src="IMG_20260302_115217.jpg"><div class="date-text">02.03.2026</div></div><div class="polaroid-back"><div class="back-note">TEST</div></div></div></div>
+            <div class="coffee-card" data-date="2026-03"><div class="polaroid-wrap" style="--r:-2deg" onclick="handleCardClick(this)"><div class="polaroid-front"><img src="IMG_20260305_105547.jpg"><div class="date-text">05.03.2026</div></div><div class="polaroid-back"><div class="back-note">TEST</div></div></div></div>
+            <div class="coffee-card" data-date="unknown"><div class="polaroid-wrap" style="--r:1deg" onclick="handleCardClick(this)"><div class="polaroid-front"><img src="photo1.jpg"><div class="date-text">xx.xx.xxxx</div></div><div class="polaroid-back"><div class="back-note">TEST</div></div></div></div>
         </div>
     </div>
 
@@ -328,151 +60,11 @@
                 <img id="lb-img" src="" alt="">
                 <div class="lightbox-date" id="lb-date"></div>
             </div>
-            <div class="lb-hint">нажми куда угодно, чтобы закрыть</div>
         </div>
     </div>
 
-    <script>
-        const slider = document.getElementById('slider');
-        const filter = document.getElementById('monthFilter');
-        const dotsContainer = document.getElementById('dots');
-        const monthNames = {"01":"Январь","02":"Февраль","03":"Март","04":"Апрель","05":"Май","06":"Июнь","07":"Июль","08":"Август","09":"Сентябрь","10":"Октябрь","11":"Ноябрь","12":"Декабрь"};
-
-        let visibleCards = [];
-        let currentIdx = 0;
-
-    
-        function openLightbox(wrap) {
-            const img = wrap.querySelector('img');
-            const date = wrap.querySelector('.date-text');
-            document.getElementById('lb-img').src = img.src;
-            document.getElementById('lb-date').textContent = date.textContent;
-            document.getElementById('lightbox').classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox(e) {
-            if (e && e.target.closest('.lightbox-polaroid')) return;
-            document.getElementById('lightbox').classList.remove('open');
-            document.body.style.overflow = '';
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeLightbox();
-            if (e.code === 'KeyC') activateEasterEgg(e);
-            if (e.key === 'ArrowLeft') move(-1);
-            if (e.key === 'ArrowRight') move(1);
-        });
-
-    
-        let touchStartX = 0;
-        let touchStartY = 0;
-        let isDragging = false;
-
-        slider.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-            isDragging = false;
-        }, { passive: true });
-
-        slider.addEventListener('touchmove', (e) => {
-            const dx = Math.abs(e.touches[0].clientX - touchStartX);
-            const dy = Math.abs(e.touches[0].clientY - touchStartY);
-            if (dx > dy && dx > 8) isDragging = true;
-        }, { passive: true });
-
-        slider.addEventListener('touchend', (e) => {
-            if (!isDragging) return;
-            const diff = touchStartX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 40) move(diff > 0 ? 1 : -1);
-        });
-
-       
-        function activateEasterEgg(e) {
-            const items = ['☕','✨','🥐','☕'];
-            for (let i = 0; i < 15; i++) {
-                const span = document.createElement('span');
-                span.className = 'confetti';
-                span.textContent = items[Math.floor(Math.random() * items.length)];
-                span.style.left = (e.pageX || window.innerWidth / 2) + 'px';
-                span.style.top = (e.pageY || window.innerHeight / 2) + 'px';
-                span.style.setProperty('--dx', (Math.random() * 400 - 200) + 'px');
-                span.style.setProperty('--dy', (Math.random() * 400 - 200) + 'px');
-                document.body.appendChild(span);
-                setTimeout(() => span.remove(), 2000);
-            }
-        }
-
-        
-        function generateFilter() {
-            const dates = [...new Set(Array.from(document.querySelectorAll('.coffee-card')).map(c => c.dataset.date))].filter(d => d !== 'unknown').sort().reverse();
-            dates.forEach(m => {
-                const [y, mm] = m.split('-');
-                const opt = document.createElement('option');
-                opt.value = m; opt.textContent = `${monthNames[mm]} ${y}`;
-                filter.appendChild(opt);
-            });
-        }
-
-        function applyFilter() {
-            const val = filter.value;
-            const all = document.querySelectorAll('.coffee-card');
-            all.forEach(c => c.style.display = (val === 'all' || c.dataset.date === val) ? 'flex' : 'none');
-            visibleCards = Array.from(all).filter(c => c.style.display !== 'none');
-            renderDots();
-            goTo(0);
-        }
-
-        function renderDots() {
-            dotsContainer.innerHTML = '';
-            visibleCards.forEach((_, i) => {
-                const d = document.createElement('div');
-                d.className = 'dot' + (i === 0 ? ' active' : '');
-                d.onclick = () => goTo(i);
-                dotsContainer.appendChild(d);
-            });
-            document.getElementById('total').textContent = visibleCards.length;
-        }
-
-      
-        function triggerCardAnim(card) {
-            const p = card.querySelector('.polaroid');
-            if (!p) return;
-            p.style.animation = 'none';
-            p.offsetHeight; 
-            p.style.animation = '';
-        }
-
-        function goTo(i) {
-            if (!visibleCards[i]) return;
-            currentIdx = i;
-            slider.scrollTo({ left: visibleCards[i].offsetLeft - slider.offsetLeft, behavior: 'smooth' });
-            updateUI(i);
-            setTimeout(() => triggerCardAnim(visibleCards[i]), 80);
-        }
-
-        function updateUI(i) {
-            document.getElementById('current').textContent = i + 1;
-            dotsContainer.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
-        }
-
-        function move(dir) {
-            const n = currentIdx + dir;
-            if (n >= 0 && n < visibleCards.length) goTo(n);
-        }
-
-        
-        for (let i = 0; i < 25; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.style.width = p.style.height = (Math.random() * 4 + 2) + 'px';
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.animationDelay = Math.random() * 20 + 's';
-            document.getElementById('particles').appendChild(p);
-        }
-
-        generateFilter();
-        applyFilter();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
+        
+   
