@@ -246,7 +246,7 @@ applyFilter('all',document.querySelector('.filter-btn[data-val="all"]'));
   function renderAll(snapshot) {
     const board = document.getElementById('gbBoard');
     const empty = document.getElementById('gbEmpty');
-    board.querySelectorAll('.gb-sticker').forEach(s => s.remove());
+    board.querySelectorAll('.gb-cell').forEach(s => s.remove());
 
     const entries = [];
     snapshot.forEach(child => entries.unshift({ key: child.key, ...child.val() }));
